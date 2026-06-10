@@ -1,6 +1,6 @@
 # ResourceManagementSystem
 
-A .NET 8 console application that simulates a distributed-style company resource management system. The project demonstrates object-oriented design, clean architecture principles, and incremental development using Git.
+A .NET 8 console application that simulates a distributed-style company resource management system.
 
 ## Project Description
 
@@ -37,39 +37,7 @@ ResourceManagementSystem allows organizations to manage employees, departments, 
 ### Console Menu
 Interactive menu for viewing employees, resources, departments, and reports.
 
-### Sample Data
-On startup, the application automatically loads sample employees, departments, resources, and example assignments for demonstration.
 
-## Installation Instructions
-
-### Prerequisites
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- Git (optional, for cloning the repository)
-
-### Clone the Repository
-```bash
-git clone https://github.com/<your-username>/ResourceManagementSystem.git
-cd ResourceManagementSystem
-```
-
-### Restore Dependencies
-```bash
-dotnet restore
-```
-
-## Running Instructions
-
-### Build the Project
-```bash
-dotnet build
-```
-
-### Run the Application
-```bash
-dotnet run --project ResourceManagementSystem
-```
-
-Alternatively, open `ResourceManagementSystem.sln` in Visual Studio and press **F5** to run.
 
 ### Menu Navigation
 | Option | Action |
@@ -93,26 +61,6 @@ ResourceManagementSystem/
 └── ResourceManager.cs   # Core service layer (CRUD, assignments, reporting)
 ```
 
-### Design Principles
-- **Separation of concerns**: Domain models are separate from business logic and presentation
-- **Single responsibility**: Each class handles one aspect of the system
-- **Encapsulation**: `ResourceManager` encapsulates all data storage and operations
-- **XML documentation**: All public classes and methods include XML comments
-
-### Data Flow
-```
-User Input (Console Menu)
-        ↓
-    Program.cs
-        ↓
-  ResourceManager (Service Layer)
-        ↓
-  Domain Models (Employee, Department, Resource)
-```
-
-## Git Workflow Description
-
-This project was developed incrementally using feature-based commits to simulate a real team workflow:
 
 | Commit | Description |
 |--------|-------------|
@@ -126,32 +74,3 @@ This project was developed incrementally using feature-based commits to simulate
 | Add console menu | Interactive user interface |
 | Add sample data | Startup data seeding |
 | Add README documentation | Project documentation |
-
-### Recommended Workflow
-1. Create a feature branch from `main`
-2. Implement a single feature or fix
-3. Run `dotnet build` to verify compilation
-4. Stage changes with `git add`
-5. Commit with a descriptive message
-6. Push and open a pull request for review
-7. Merge into `main` after approval
-
-### Useful Git Commands
-```bash
-# View commit history
-git log --oneline
-
-# Check current status
-git status
-
-# Create a feature branch
-git checkout -b feature/my-feature
-
-# Stage and commit changes
-git add .
-git commit -m "Describe your change"
-```
-
-## License
-
-This project was created as a university assignment demonstrating C# development and Git version control practices.
