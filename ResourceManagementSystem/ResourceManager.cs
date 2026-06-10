@@ -152,4 +152,59 @@ public class ResourceManager
     {
         return _resources.AsReadOnly();
     }
+
+    /// <summary>
+    /// Assigns a resource to an employee.
+    /// </summary>
+    /// <param name="resourceId">The identifier of the resource.</param>
+    /// <param name="employeeId">The identifier of the employee.</param>
+    /// <returns><c>true</c> if the assignment succeeded; otherwise, <c>false</c>.</returns>
+    public bool AssignResourceToEmployee(int resourceId, int employeeId)
+    {
+        var resource = _resources.FirstOrDefault(r => r.Id == resourceId);
+        var employee = _employees.FirstOrDefault(e => e.Id == employeeId);
+
+        if (resource is null || employee is null)
+        {
+            return false;
+        }
+
+        if (resource.IsAssigned)
+        {
+            return false;
+        }
+
+        resource.IsAssigned = true;
+        resource.AssignedEmployeeId = employeeId;
+        return true;
+    }
+
+    /// <summary>
+    /// Releases a resource from its current assignment.
+    /// </summary>
+    /// <param name="resourceId">The identifier of the resource to release.</param>
+    /// <returns><c>true</c> if the resource was released; otherwise, <c>false</c>.</returns>
+    public bool ReleaseResource(int resourceId)
+    {
+        var resource = _resources.FirstOrDefault(r => r.Id == resourceId);
+        if (resource is null || !resource.IsAssigned)
+        {
+            return false;
+        }
+
+        resource.IsAssigned = false;
+        resource.AssignedEmployeeId = null;
+        return true;
+    }
+
+    /// <summary>
+    /// Determines whether a resource is currently assigned.
+    /// </summary>
+    /// <param name="resourceId">The identifier of the resource.</param>
+    /// <returns><c>true</c> if the resource is assigned; otherwise, <c>false</c>.</returns>
+    public bool IsResourceAssigned(int resourceId)
+    {
+        var resource = _resources.FirstOrDefault(r => r.Id == resourceId);
+        return resource?.IsAssigned ?? false;
+    }
 }
