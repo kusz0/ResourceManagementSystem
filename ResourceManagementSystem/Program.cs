@@ -17,6 +17,9 @@ internal class Program
         Console.WriteLine("   Company Resource Management System");
         Console.WriteLine("============================================");
 
+        Manager.SeedSampleData();
+        Console.WriteLine("Sample data loaded successfully.");
+
         RunMenu();
     }
 

@@ -14,6 +14,36 @@ public class ResourceManager
     private int _nextResourceId = 1;
 
     /// <summary>
+    /// Populates the system with sample data for demonstration purposes.
+    /// </summary>
+    public void SeedSampleData()
+    {
+        var engineering = CreateDepartment("Engineering", "Software development and technical operations");
+        var hr = CreateDepartment("Human Resources", "Employee relations and recruitment");
+        var operations = CreateDepartment("Operations", "Day-to-day business operations");
+
+        var alice = AddEmployee("Alice Johnson", "Software Engineer", "alice.johnson@company.com");
+        var bob = AddEmployee("Bob Smith", "HR Manager", "bob.smith@company.com");
+        var carol = AddEmployee("Carol Williams", "Operations Lead", "carol.williams@company.com");
+        var david = AddEmployee("David Brown", "DevOps Engineer", "david.brown@company.com");
+
+        AssignEmployeeToDepartment(alice.Id, engineering.Id);
+        AssignEmployeeToDepartment(david.Id, engineering.Id);
+        AssignEmployeeToDepartment(bob.Id, hr.Id);
+        AssignEmployeeToDepartment(carol.Id, operations.Id);
+
+        var laptop = AddResource("Dell Latitude 5540", "Laptop");
+        var monitor = AddResource("LG UltraWide Monitor", "Monitor");
+        var vehicle = AddResource("Ford Transit Van", "Vehicle");
+        var phone = AddResource("iPhone 15 Pro", "Mobile Device");
+
+        AssignResourceToEmployee(laptop.Id, alice.Id);
+        AssignResourceToEmployee(monitor.Id, alice.Id);
+        AssignResourceToEmployee(vehicle.Id, carol.Id);
+        AssignResourceToEmployee(phone.Id, bob.Id);
+    }
+
+    /// <summary>
     /// Adds a new employee to the system.
     /// </summary>
     /// <param name="name">The employee's full name.</param>
