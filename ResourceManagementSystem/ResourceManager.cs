@@ -207,4 +207,97 @@ public class ResourceManager
         var resource = _resources.FirstOrDefault(r => r.Id == resourceId);
         return resource?.IsAssigned ?? false;
     }
+
+    /// <summary>
+    /// Displays a report of all employees in the system.
+    /// </summary>
+    public void DisplayEmployeeReport()
+    {
+        Console.WriteLine("\n=== Employee Report ===");
+        if (_employees.Count == 0)
+        {
+            Console.WriteLine("No employees found.");
+            return;
+        }
+
+        foreach (var employee in _employees)
+        {
+            string departmentName = GetDepartmentName(employee.DepartmentId);
+            Console.WriteLine($"{employee} | Department: {departmentName}");
+        }
+    }
+
+    /// <summary>
+    /// Displays a report of all resources in the system.
+    /// </summary>
+    public void DisplayResourceReport()
+    {
+        Console.WriteLine("\n=== Resource Report ===");
+        if (_resources.Count == 0)
+        {
+            Console.WriteLine("No resources found.");
+            return;
+        }
+
+        foreach (var resource in _resources)
+        {
+            Console.WriteLine(resource);
+        }
+    }
+
+    /// <summary>
+    /// Displays a report of all currently assigned resources.
+    /// </summary>
+    public void DisplayAssignedResourcesReport()
+    {
+        Console.WriteLine("\n=== Assigned Resources Report ===");
+        var assignedResources = _resources.Where(r => r.IsAssigned).ToList();
+
+        if (assignedResources.Count == 0)
+        {
+            Console.WriteLine("No assigned resources found.");
+            return;
+        }
+
+        foreach (var resource in assignedResources)
+        {
+            var employee = _employees.FirstOrDefault(e => e.Id == resource.AssignedEmployeeId);
+            string employeeName = employee?.Name ?? "Unknown";
+            Console.WriteLine($"{resource.Name} ({resource.Type}) -> {employeeName}");
+        }
+    }
+
+    /// <summary>
+    /// Displays a summary report for all departments.
+    /// </summary>
+    public void DisplayDepartmentSummaryReport()
+    {
+        Console.WriteLine("\n=== Department Summary Report ===");
+        if (_departments.Count == 0)
+        {
+            Console.WriteLine("No departments found.");
+            return;
+        }
+
+        foreach (var department in _departments)
+        {
+            var members = _employees.Where(e => e.DepartmentId == department.Id).ToList();
+            Console.WriteLine($"\n{department.Name}: {members.Count} employee(s)");
+            foreach (var member in members)
+            {
+                Console.WriteLine($"  - {member.Name} ({member.Position})");
+            }
+        }
+    }
+
+    private string GetDepartmentName(int? departmentId)
+    {
+        if (departmentId is null)
+        {
+            return "Unassigned";
+        }
+
+        var department = _departments.FirstOrDefault(d => d.Id == departmentId);
+        return department?.Name ?? "Unknown";
+    }
 }
